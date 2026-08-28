@@ -89,6 +89,7 @@ class Tower {
   // ── FIRE ──────────────────────────────────────────────────
   _fire(target, enemies) {
     var tier = UPGRADE.getTier(this.level);
+    Sound.playFire(this.typeKey);
     switch (this.typeKey) {
       case 'ballista':
         this._fireBallista(target, tier);

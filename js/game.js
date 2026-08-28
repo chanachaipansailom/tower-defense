@@ -27,6 +27,8 @@ const game = {
     this.ctx = this.canvas.getContext("2d");
     UI.init();
     this._bindEvents();
+    // ปลดล็อก AudioContext จากการโต้ตอบครั้งแรกของผู้เล่น (นโยบาย autoplay ของเบราว์เซอร์)
+    window.addEventListener("pointerdown", () => Sound.unlock(), { once: true });
     const ids = Object.keys(MAPS);
     const pick = ids[Math.floor(Math.random() * ids.length)];
     this.startGame(pick);
