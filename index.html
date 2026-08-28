@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tower Defense - เกมป้องกันป้อม</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <div id="game-container">
+    <!-- แถบข้อมูลด้านบน (HUD) -->
+    <div id="hud">
+      <div class="hud-item">💰 <span id="gold">0</span></div>
+      <div class="hud-item">❤️ <span id="lives">0</span></div>
+      <div class="hud-item">⭐ Lv.<span id="level">1</span></div>
+      <div class="hud-item">✨ <span id="exp">0</span>/<span id="exp-next">0</span></div>
+      <div class="hud-item">🌊 <span id="wave">0</span></div>
+    </div>
+
+    <!-- พื้นที่เล่นเกม -->
+    <div id="stage">
+      <canvas id="game-canvas" width="800" height="600"></canvas>
+
+      <!-- Overlay เกม (เริ่ม/จบ) -->
+      <div id="overlay" class="hidden">
+        <div id="overlay-title"></div>
+        <div id="overlay-sub"></div>
+        <button id="overlay-btn">เริ่มใหม่</button>
+      </div>
+
+      <!-- Tower Popup — แสดงรายละเอียด/อัพเกรด/ขาย ตรงป้อมที่เลือก -->
+      <div id="tower-popup" class="hidden">
+        <button class="pop-close" id="popup-close-btn">✕</button>
+        <div id="popup-header">
+          <span class="pop-icon" id="popup-icon"></span>
+          <div>
+            <div class="pop-title" id="popup-name"></div>
+            <div class="pop-sub" id="popup-tier"></div>
+          </div>
+        </div>
+        <div id="popup-stats"></div>
+        <div id="popup-upgrade-info"></div>
+        <div class="pop-btn-row">
+          <button id="upgrade-btn">⭐ อัปเกรด</button>
+          <button id="sell-btn">💰 ขาย</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- แผงควบคุมด้านขวา -->
+    <div id="sidebar">
+      <h2>🏰 ป้อม</h2>
+      <div id="tower-shop"></div>
+      <div id="controls">
+        <button id="start-wave-btn">▶️ เริ่ม Wave</button>
+        <button id="speed-btn">⏩ x1</button>
+        <button id="auto-play-btn">🤖 ออโต้: ปิด</button>
+        <!-- <button id="dev-btn">🛠️ DEV: ปิด</button> -->
+      </div>
+      <div id="message"></div>
+    </div>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/map.js"></script>
+  <script src="js/enemy.js"></script>
+  <script src="js/tower.js"></script>
+  <script src="js/projectile.js"></script>
+  <script src="js/economy.js"></script>
+  <script src="js/score.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/game.js"></script>
+</body>
+
+</html>
