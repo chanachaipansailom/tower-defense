@@ -65,7 +65,7 @@ const game = {
     UI.el.startWaveBtn.addEventListener("click", () => this.startWave());
 
     UI.el.speedBtn.addEventListener("click", () => {
-      this.speedMultiplier = this.speedMultiplier === 1 ? 2 : 1;
+      this.speedMultiplier = this.speedMultiplier >= 3 ? 1 : this.speedMultiplier + 1;
       UI.el.speedBtn.textContent = `⏩ x${this.speedMultiplier}`;
     });
 
@@ -219,7 +219,6 @@ const game = {
 
   startWave() {
     if (this.waveInProgress || this.gameOver) return;
-    if (this.waveNumber >= CONFIG.totalWaves) return;
     this.waveNumber++;
     this.waveInProgress = true;
     this.spawnQueue = this._buildWave(this.waveNumber);
@@ -241,7 +240,7 @@ const game = {
 
     if (n <= 2) {
       // Wave 1-2: ออร์คธรรมดา ฝึกหัด
-      push("orc", 8 + n * 2);
+      push("orc", 6 + n * 2);
       if (n >= 2) push("fast_orc", 3);
 
     } else if (n <= 5) {
@@ -312,18 +311,12 @@ const game = {
   _checkWaveEnd() {
     if (this.waveInProgress && this.spawnQueue.length === 0 && this.enemies.length === 0) {
       this.waveInProgress = false;
-      const bonus = 20 + this.waveNumber * 5;
-      this.economy.addGold(bonus);
-      if (this.waveNumber >= CONFIG.totalWaves) {
-        this._winGame();
+      if (this.autoPlay) {
+        // auto mode: นับถอยหลัง 3 วินาทีแล้วยิง wave ถัดไป
+        this._autoWaveTimer = 3;
+        UI.showMessage(`🎉 ผ่าน Wave ${this.waveNumber}! · 🤖 Wave ถัดไปใน 3 วิ...`);
       } else {
-        if (this.autoPlay) {
-          // auto mode: นับถอยหลัง 3 วินาทีแล้วยิง wave ถัดไป
-          this._autoWaveTimer = 3;
-          UI.showMessage(`🎉 ผ่าน Wave ${this.waveNumber}! +${bonus}💰 · 🤖 Wave ถัดไปใน 3 วิ...`);
-        } else {
-          UI.showMessage(`🎉 ผ่าน Wave ${this.waveNumber}! รับโบนัส ${bonus}💰`);
-        }
+        UI.showMessage(`🎉 ผ่าน Wave ${this.waveNumber}!`);
       }
     }
   },
@@ -339,7 +332,7 @@ const game = {
       this._autoPlayTimer = 3;
     } else {
       UI.showOverlay("🏆 ชนะแล้ว!",
-        `พิชิตด่าน ${GameMap.currentMap.name} ครบ ${CONFIG.totalWaves} Wave!\nเลเวล ${this.economy.level} · ฐานเหลือ ${this.economy.lives} ❤️\nคะแนน: ${result.score} · ${recordLine}`,
+        `พิชิตด่าน ${GameMap.currentMap.name}!\nเลเวล ${this.economy.level} · ฐานเหลือ ${this.economy.lives} ❤️\nคะแนน: ${result.score} · ${recordLine}`,
         "🔄 เริ่มด่านใหม่");
     }
   },
@@ -389,7 +382,7 @@ const game = {
     this.enemies = this.enemies.filter(e => !e.dead);
 
     // Auto-wave: นับถอยหลังแล้วเริ่ม wave ถัดไปอัตโนมัติ
-    if (this.autoPlay && !this.waveInProgress && this.waveNumber < CONFIG.totalWaves) {
+    if (this.autoPlay && !this.waveInProgress) {
       if (this._autoWaveTimer > 0) {
         this._autoWaveTimer -= dt;
         if (this._autoWaveTimer <= 0) {

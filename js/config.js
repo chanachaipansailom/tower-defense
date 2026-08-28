@@ -3,9 +3,8 @@
 // ============================================================
 const CONFIG = {
   canvasWidth: 800, canvasHeight: 600, tileSize: 40,
-  startGold: 200, startLives: 20,
+  startGold: 300, startLives: 20,
   baseExp: 100, expGrowth: 1.35, maxLevel: 20,
-  totalWaves: 15,
 };
 
 const ABILITIES = {
@@ -21,7 +20,7 @@ const ABILITIES = {
 const TOWER_TYPES = {
   ballista: {
     key: "ballista", name: "บัลลิสต้า", icon: "🏹",
-    cost: 60, range: 100, damage: 4, fireRate: 0.55,
+    cost: 60, range: 100, damage: 15, fireRate: 0.42,
     projectileSpeed: 450, color: "#8d6e63",
     projectileColor: "#cddc39", unlockLevel: 1,
     special: null,
@@ -31,19 +30,19 @@ const TOWER_TYPES = {
   },
   torch: {
     key: "torch", name: "คบไฟ", icon: "🔥",
-    cost: 110, range: 70, damage: 2, fireRate: 0.18,
+    cost: 110, range: 70, damage: 6, fireRate: 0.18,
     projectileSpeed: 300, color: "#ff5722",
-    projectileColor: "#ff9800", unlockLevel: 3,
-    special: "burn", burnDamage: 2, burnDuration: 2.5,
+    projectileColor: "#ff9800", unlockLevel: 1,
+    special: "burn", burnDamage: 4, burnDuration: 2.5,
     targetType: ["ground"],
     tierName: ["คบไฟ", "ขดสายฟ้า Tesla", "ลูกพลาสมา"],
     desc: "T1: พ่นไฟ+เผา · T2: Tesla Chain · T3: Plasma AOE",
   },
   cannon: {
     key: "cannon", name: "ปืนใหญ่", icon: "💣",
-    cost: 180, range: 95, damage: 15, fireRate: 2.2,
+    cost: 180, range: 95, damage: 38, fireRate: 2.2,
     projectileSpeed: 260, color: "#795548",
-    projectileColor: "#5d4037", unlockLevel: 5,
+    projectileColor: "#5d4037", unlockLevel: 1,
     special: "splash", splashRadius: 55,
     targetType: ["ground"],
     tierName: ["ปืนใหญ่", "ทุ่นระเบิด", "จรวดนำวิถี"],
@@ -53,7 +52,7 @@ const TOWER_TYPES = {
     key: "timewarper", name: "ควบคุมเวลา", icon: "⏱️",
     cost: 140, range: 90, damage: 0, fireRate: 1.5,
     projectileSpeed: 0, color: "#7e57c2",
-    projectileColor: "#b39ddb", unlockLevel: 2,
+    projectileColor: "#b39ddb", unlockLevel: 1,
     special: "aura",
     slowFactor: 0.45, slowDuration: 2,
     freezeDuration: 1.8,
@@ -91,27 +90,27 @@ const UPGRADE = {
 
 const ENEMY_TYPES = {
   orc: {
-    key: "orc", name: "ออร์ค", hp: 100, speed: 60, gold: 8, exp: 5,
+    key: "orc", name: "ออร์ค", hp: 50, speed: 60, gold: 8, exp: 5,
     color: "#4caf50", radius: 12, unitType: "ground",
   },
   fast_orc: {
-    key: "fast_orc", name: "ออร์คเร็ว", hp: 65, speed: 130, gold: 10, exp: 7,
+    key: "fast_orc", name: "ออร์คเร็ว", hp: 32, speed: 130, gold: 10, exp: 7,
     color: "#ff9800", radius: 10, unitType: "ground",
   },
   orc_tank: {
-    key: "orc_tank", name: "ออร์คยักษ์", hp: 450, speed: 32, gold: 22, exp: 16,
+    key: "orc_tank", name: "ออร์คยักษ์", hp: 180, speed: 32, gold: 22, exp: 16,
     color: "#795548", radius: 17, unitType: "ground",
   },
   wizard: {
-    key: "wizard", name: "พ่อมดบิน", hp: 160, speed: 55, gold: 20, exp: 15,
+    key: "wizard", name: "พ่อมดบิน", hp: 75, speed: 55, gold: 20, exp: 15,
     color: "#9c27b0", radius: 12, regenRate: 6, unitType: "air",
   },
   harpy: {
-    key: "harpy", name: "ฮาร์ปี้", hp: 90, speed: 100, gold: 14, exp: 10,
+    key: "harpy", name: "ฮาร์ปี้", hp: 45, speed: 100, gold: 14, exp: 10,
     color: "#00bcd4", radius: 11, unitType: "air",
   },
   orc_boss: {
-    key: "orc_boss", name: "บอสออร์ค", hp: 2000, speed: 28, gold: 120, exp: 70,
+    key: "orc_boss", name: "บอสออร์ค", hp: 700, speed: 28, gold: 120, exp: 70,
     color: "#b71c1c", radius: 24, unitType: "ground",
   },
 };

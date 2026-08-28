@@ -67,7 +67,7 @@ const UI = {
     this.el.level.textContent  = eco.level;
     this.el.exp.textContent    = eco.exp;
     this.el.expNext.textContent = eco.level >= CONFIG.maxLevel ? "MAX" : eco.expToNext;
-    this.el.wave.textContent   = `${game.waveNumber}/${CONFIG.totalWaves}`;
+    this.el.wave.textContent   = `${game.waveNumber}`;
 
     const cards = this.el.shop.querySelectorAll(".tower-card");
     cards.forEach(card => {
@@ -82,13 +82,10 @@ const UI = {
         unlocked && !window.DEV_MODE && eco.gold < TOWER_TYPES[key].cost);
     });
 
-    const allDone = game.waveNumber >= CONFIG.totalWaves;
-    this.el.startWaveBtn.disabled = game.waveInProgress || allDone;
+    this.el.startWaveBtn.disabled = game.waveInProgress;
     this.el.startWaveBtn.textContent = game.waveInProgress
       ? "⚔️ กำลังต่อสู้..."
-      : allDone
-        ? "🏁 ครบทุก Wave"
-        : `▶️ Wave ${game.waveNumber + 1}`;
+      : `▶️ Wave ${game.waveNumber + 1}`;
   },
 
   // ===================== Tower Popup บนแคนวาส =====================
